@@ -192,24 +192,38 @@
 }
 
 @media (max-width: 520px) {
-  .tool-rack {
-    width: 32px;
-    gap: 0.35rem;
+  .workshop-zone {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 0.5rem;
+    align-content: center;
+  }
+
+  /* Кнопки инструментов — в два ряда над и под столом */
+  .tool-rack.left,
+  .tool-rack.right {
+    display: contents;
+  }
+
+  .tool-rack.right {
+    order: unset;
   }
 
   .tool-item {
-    width: 34px;
-    height: 34px;
-    font-size: 0.95rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .workshop-table {
+    flex: 1 1 100%;
+    width: 100%;
+    min-height: 170px;
   }
 
   .table-surface {
     min-height: 160px;
   }
-}
-
-@media (max-width: 400px) {
-  .tool-rack { display: none; }
 }
 
 @media (max-height: 640px) {
