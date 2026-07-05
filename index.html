@@ -8,12 +8,12 @@
   <meta http-equiv="Expires" content="0">
   <meta name="description" content="Узоры мастера — игра на память в плетёной мастерской">
   <title>Узоры мастера</title>
-  <link rel="stylesheet" href="css/variables.css?v=30">
-  <link rel="stylesheet" href="css/base.css?v=30">
-  <link rel="stylesheet" href="css/ui.css?v=30">
-  <link rel="stylesheet" href="css/workshop.css?v=30">
-  <link rel="stylesheet" href="css/cards.css?v=30">
-  <link rel="stylesheet" href="css/game-scene.css?v=30">
+  <link rel="stylesheet" href="css/variables.css?v=31">
+  <link rel="stylesheet" href="css/base.css?v=31">
+  <link rel="stylesheet" href="css/ui.css?v=31">
+  <link rel="stylesheet" href="css/workshop.css?v=31">
+  <link rel="stylesheet" href="css/cards.css?v=31">
+  <link rel="stylesheet" href="css/game-scene.css?v=31">
 </head>
 <body>
   <div class="scene-bg" aria-hidden="true"></div>
@@ -94,10 +94,37 @@
         </div>
       </header>
 
+      <div class="tools-bar tools-bar--mobile" aria-label="Инструменты мастера">
+        <button type="button" class="tool-item" data-tool="hint">
+          <span class="tool-icon" aria-hidden="true">✂️</span>
+          <span class="tool-label">Пара</span>
+        </button>
+        <button type="button" class="tool-item" data-tool="peek">
+          <span class="tool-icon" aria-hidden="true">🪡</span>
+          <span class="tool-label">Взгляд</span>
+        </button>
+        <button type="button" class="tool-item" data-tool="mend">
+          <span class="tool-icon" aria-hidden="true">🧵</span>
+          <span class="tool-label">+1 🧶</span>
+        </button>
+        <button type="button" class="tool-item" data-tool="pause">
+          <span class="tool-icon" aria-hidden="true">🌾</span>
+          <span class="tool-label">Пауза</span>
+        </button>
+        <button type="button" class="tool-item" data-tool="shield">
+          <span class="tool-icon" aria-hidden="true">🔧</span>
+          <span class="tool-label">Щит</span>
+        </button>
+        <button type="button" class="tool-item" data-tool="wisdom">
+          <span class="tool-icon" aria-hidden="true">🫙</span>
+          <span class="tool-label">Факт</span>
+        </button>
+      </div>
+
       <div class="game-body">
         <div class="table-scene">
           <div class="workshop-zone">
-            <div class="tools-bar">
+            <div class="tools-bar tools-bar--desktop">
               <div class="tools-strip tools-strip--top" aria-label="Инструменты мастера">
                 <button type="button" class="tool-item" data-tool="hint">
                   <span class="tool-icon" aria-hidden="true">✂️</span>
@@ -191,16 +218,16 @@
     </div>
   </div>
 
-  <script src="js/config.js?v=30"></script>
-  <script src="js/data/pairs.js?v=30"></script>
-  <script src="js/core/state.js?v=30"></script>
-  <script src="js/game/render.js?v=30"></script>
-  <script src="js/game/engine.js?v=30"></script>
-  <script src="js/game/tools.js?v=30"></script>
-  <script src="js/ui/facts.js?v=30"></script>
-  <script src="js/ui/effects.js?v=30"></script>
-  <script src="js/ui/help.js?v=30"></script>
-  <script src="js/ui/hud.js?v=30"></script>
-  <script src="js/main.js?v=30"></script>
+  <script src="js/config.js?v=31"></script>
+  <script src="js/data/pairs.js?v=31"></script>
+  <script src="js/core/state.js?v=31"></script>
+  <script src="js/game/render.js?v=31"></script>
+  <script src="js/game/engine.js?v=31"></script>
+  <script src="js/game/tools.js?v=31"></script>
+  <script src="js/ui/facts.js?v=31"></script>
+  <script src="js/ui/effects.js?v=31"></script>
+  <script src="js/ui/help.js?v=31"></script>
+  <script src="js/ui/hud.js?v=31"></script>
+  <script src="js/main.js?v=31"></script>
 </body>
 </html>

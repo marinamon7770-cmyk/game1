@@ -31,6 +31,14 @@
   display: contents;
 }
 
+.tools-bar--mobile {
+  display: none;
+}
+
+.tools-bar--desktop {
+  display: contents;
+}
+
 .tools-strip {
   display: flex;
   flex-direction: row;
@@ -225,6 +233,44 @@
 
 /* ===== Только мобильная: плашка подсказок + стол с картами ===== */
 @media (max-width: 640px) {
+  .tools-bar--desktop {
+    display: none !important;
+  }
+
+  .tools-bar--mobile {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.16rem;
+    flex-shrink: 0;
+    margin: 0 0.35rem 0.35rem;
+    padding: 0.22rem 0.28rem;
+    background: rgba(42, 33, 24, 0.92);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 168, 83, 0.22);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
+  }
+
+  .tools-bar--mobile .tool-item {
+    flex: 1;
+    max-width: 34px;
+    min-height: 0;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 9px;
+    gap: 0;
+  }
+
+  .tools-bar--mobile .tool-icon {
+    font-size: 0.82rem;
+  }
+
+  .tools-bar--mobile .tool-label {
+    display: none !important;
+  }
+
   .game-body {
     flex: 1;
     min-height: 0;
@@ -240,55 +286,7 @@
   .workshop-zone {
     flex: 1;
     min-height: 0;
-    gap: 0.35rem;
-  }
-
-  .tools-bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0.18rem;
-    flex-shrink: 0;
-    margin: 0 0.35rem;
-    padding: 0.22rem 0.28rem;
-    background: rgba(42, 33, 24, 0.9);
-    border-radius: 12px;
-    border: 1px solid rgba(212, 168, 83, 0.18);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
-  }
-
-  .tools-bar .tools-strip {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    gap: 0.16rem;
-    padding: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  .tools-bar .tool-item {
-    flex: 1;
-    max-width: 34px;
-    min-height: 0;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border-radius: 9px;
     gap: 0;
-  }
-
-  .tools-bar .tool-icon {
-    font-size: 0.82rem;
-  }
-
-  .tools-bar .tool-label {
-    display: none;
   }
 
   .workshop-table {
@@ -352,7 +350,11 @@
     gap: clamp(0.2rem, 1.5vw, 0.65rem);
   }
 
-  .tools-bar {
+  .tools-bar--mobile {
+    display: none !important;
+  }
+
+  .tools-bar--desktop {
     display: contents;
   }
 
