@@ -1,0 +1,302 @@
+/* ===== Карточки 3D ===== */
+.stack-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--card-w);
+  height: calc(var(--card-w) * 1.34);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: default;
+  pointer-events: none;
+  /* слои вниз и вправо — «гребешки» стопки */
+  transform: translate(
+    calc(var(--layer) * var(--stack-x)),
+    calc(var(--layer) * var(--stack-y))
+  );
+  transition: opacity 0.35s ease, filter 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  transform-style: preserve-3d;
+}
+
+.stack-card.playable {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.stack-card.playable:hover .card-body {
+  transform: translateY(-4px) rotateX(-3deg);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 168, 83, 0.2);
+}
+
+.stack-card.playable:active .card-body {
+  transform: translateY(-1px);
+}
+
+.stack-card.is-open .card-body {
+  transform: rotateY(180deg);
+}
+
+.stack-card.is-open.playable:hover .card-body {
+  transform: rotateY(180deg);
+}
+
+.stack-card.endgame-card {
+  position: relative !important;
+  transform: none !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+.stack-card.endgame-card.is-open {
+  pointer-events: none !important;
+}
+
+.stack-card.is-open:not(.matched) {
+  pointer-events: none;
+}
+
+.stack-card.removing {
+  pointer-events: none;
+  animation: cardFly 0.6s ease forwards;
+  z-index: 200 !important;
+}
+
+@keyframes cardFly {
+  to {
+    transform: translate(calc(var(--layer) * var(--stack-x)), calc(var(--layer) * var(--stack-y) - 80px)) scale(0.8) rotate(-12deg);
+    opacity: 0;
+  }
+}
+
+.stack-card:not(.playable):not(.is-open):not(.matched) .card-body {
+  filter: brightness(calc(1 - var(--layer) * 0.06));
+}
+
+/* Тело карты — толщина 3D */
+.card-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform var(--flip) cubic-bezier(0.4, 0.15, 0.2, 1), box-shadow 0.25s;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.card-body::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 3px;
+  bottom: 3px;
+  width: 3px;
+  background: linear-gradient(180deg, #8a7358, #5c4632);
+  border-radius: 0 2px 2px 0;
+  transform: rotateY(90deg) translateZ(calc(var(--card-w) / 2 - 1px));
+  transform-origin: left center;
+}
+
+.card-side {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* ===== Рубашки — 4 материала ===== */
+.card-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.card-back::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: calc(var(--radius) - 3px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-back.back-willow {
+  background: linear-gradient(155deg, #6a7a52 0%, #4a5538 50%, #3a4530 100%);
+}
+.card-back.back-willow::before {
+  background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255, 255, 255, 0.04) 4px, rgba(255, 255, 255, 0.04) 5px);
+}
+
+.card-back.back-reed {
+  background: linear-gradient(160deg, #8a7a58 0%, #6a5a40 55%, #4a4030 100%);
+}
+.card-back.back-reed::before {
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.06) 2px, rgba(0, 0, 0, 0.06) 3px);
+}
+
+.card-back.back-vine {
+  background: linear-gradient(145deg, #5a6848 0%, #3a4832 60%, #2a3828 100%);
+}
+.card-back.back-vine::before {
+  background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.card-back.back-linen {
+  background: linear-gradient(170deg, #9a8870 0%, #7a6850 50%, #5a4838 100%);
+}
+.card-back.back-linen::before {
+  background: repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255, 255, 255, 0.05) 3px, rgba(255, 255, 255, 0.05) 4px);
+}
+
+.card-back-mark {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(212, 168, 83, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Лицо карты ===== */
+.card-front {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.card-front.is-product {
+  background: linear-gradient(175deg, #fffef9 0%, #f5ebe0 100%);
+  border: 2px solid rgba(196, 112, 74, 0.4);
+}
+
+.card-front.is-purpose {
+  background: linear-gradient(175deg, #faf8f4 0%, #ede4d8 100%);
+  border: 2px solid rgba(122, 132, 80, 0.45);
+}
+
+/* Категории */
+.card-front.cat-home { border-top: 3px solid var(--cat-home); }
+.card-front.cat-decor { border-top: 3px solid var(--cat-decor); }
+.card-front.cat-kitchen { border-top: 3px solid var(--cat-kitchen); }
+.card-front.cat-outdoor { border-top: 3px solid var(--cat-outdoor); }
+.card-front.cat-light { border-top: 3px solid var(--cat-light); }
+
+.cat-badge {
+  width: 100%;
+  padding: 0.2rem 0.25rem 0.15rem;
+  font-size: clamp(0.48rem, 2.2vw, 0.56rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.cat-home .cat-badge { color: var(--cat-home); }
+.cat-decor .cat-badge { color: var(--cat-decor); }
+.cat-kitchen .cat-badge { color: var(--cat-kitchen); }
+.cat-outdoor .cat-badge { color: var(--cat-outdoor); }
+.cat-light .cat-badge { color: var(--cat-light); }
+
+.card-front.is-product .icon-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  max-height: 55%;
+  padding: 0.12rem;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+}
+
+.card-front.is-product svg {
+  width: 88%;
+  height: 88%;
+  max-height: 100%;
+}
+
+.card-front.is-product .lbl {
+  flex-shrink: 0;
+  font-size: clamp(0.54rem, 2.6vw, 0.66rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #2a1810;
+  padding: 0.2rem 0.28rem 0.32rem;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.card-front.is-purpose .purpose-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.2rem 0.05rem;
+  font-size: clamp(0.65rem, 3vw, 0.78rem);
+  flex-shrink: 0;
+}
+
+.card-front.is-purpose .lbl {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.52rem, 2.4vw, 0.62rem);
+  font-weight: 600;
+  line-height: 1.28;
+  color: #3d2817;
+  padding: 0.12rem 0.32rem 0.35rem;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.stack-card.matched .card-front {
+  border-color: var(--success);
+  box-shadow: inset 0 0 0 1px rgba(107, 154, 88, 0.35), 0 0 12px var(--success-glow);
+}
+
+.stack-card.is-open:not(.matched) .card-front {
+  box-shadow: inset 0 0 0 1px rgba(212, 168, 83, 0.3), 0 0 8px rgba(212, 168, 83, 0.15);
+}
+
+/* Подсказка и подглядывание */
+.stack-card.hint-glow .card-body {
+  box-shadow: 0 0 0 3px var(--gold), 0 0 20px var(--gold-glow), var(--shadow-card);
+  animation: hintPulse 0.6s ease infinite alternate;
+}
+
+@keyframes hintPulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.15); }
+}
+
+.stack-card.peek-flash .card-body {
+  transform: rotateY(180deg);
+  transition: transform 0.35s ease;
+}
+
+.stack-card.peek-flash.is-open .card-body {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-card, .card-body, .stack-card.playable:hover .card-body { animation: none !important; transition: none !important; }
+}

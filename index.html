@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Узоры мастера — игра на память в плетёной мастерской">
+  <title>Узоры мастера</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/workshop.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/game-scene.css">
+</head>
+<body>
+  <div class="scene-bg" aria-hidden="true"></div>
+  <div class="light-rays" aria-hidden="true"></div>
+
+  <div class="app">
+    <!-- ===== Старт ===== -->
+    <section id="screen-start" class="screen active">
+      <div class="hero">
+        <div class="hero-3d-icon"><span>🧶</span></div>
+        <h1>Узоры мастера</h1>
+        <p class="hero-lead">Откройте карточки в стопках, найдите пару — изделие и его назначение</p>
+        <p class="hero-hint">У каждого промаха теряется <b>терпение</b>. Боковые инструменты — подсказки мастера (1 раз за раунд).</p>
+
+        <div class="difficulty-row">
+          <button type="button" class="btn btn-diff is-active" data-diff="normal">
+            Мастер
+            <small>5 раундов</small>
+          </button>
+          <button type="button" class="btn btn-diff" data-diff="hard">
+            Виртуоз
+            <small>+стопки, быстрее</small>
+          </button>
+          <button type="button" class="btn btn-diff" data-diff="expert">
+            Легенда
+            <small>максимум</small>
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <span>Раундов<br><b id="stat-rounds">5</b></span>
+          <span>Изделий<br><b id="stat-pairs">12</b></span>
+          <span>Категорий<br><b>5</b></span>
+        </div>
+
+        <details class="help-inline-wrap">
+          <summary class="help-inline-toggle">📖 Инструкция</summary>
+          <div id="help-inline"></div>
+        </details>
+
+        <button class="btn btn-primary" id="btn-start" type="button">Начать игру</button>
+      </div>
+    </section>
+
+    <!-- ===== Игра ===== -->
+    <section id="screen-game" class="screen">
+      <div class="game-ambient" aria-hidden="true">
+        <div class="game-glow game-glow-left"></div>
+        <div class="game-glow game-glow-right"></div>
+        <div class="lamp-light"></div>
+      </div>
+      <div class="fx-layer" id="fx-layer" aria-hidden="true"></div>
+
+      <header class="game-bar">
+        <div class="game-bar-top">
+          <span class="game-title">Узоры мастера</span>
+          <div class="game-bar-chips">
+            <span class="chip" id="patience-chip" title="Терпение — теряется за каждый промах">🧶 <b id="patience">6</b>/<span id="patience-max">6</span></span>
+            <span class="chip" id="timer-chip">⏱ <b id="timer">00:00</b></span>
+            <span class="chip">Очки <b id="score">0</b></span>
+            <span class="chip" title="Промахи">Промахи <b id="misses">0</b></span>
+            <span class="chip" id="combo-chip">Комбо <b id="combo">—</b></span>
+            <span class="chip">Ходы <b id="moves">0</b></span>
+          </div>
+          <div class="game-bar-actions">
+            <button class="btn btn-ghost" id="btn-help" type="button" title="Инструкция">📖</button>
+            <button class="btn btn-ghost" id="btn-exit" type="button">Выйти</button>
+            <button class="btn btn-ghost" id="btn-restart" type="button">Заново</button>
+          </div>
+        </div>
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="game-bar-meta">
+          <span id="round-info">Раунд 1/5 · Ученик</span>
+          <span id="pairs-info">0 / 4 пар</span>
+          <span class="difficulty-badge" id="difficulty-badge">Мастер</span>
+        </div>
+      </header>
+
+      <div class="table-scene">
+        <div class="workshop-zone">
+          <aside class="tool-rack left" aria-label="Инструменты мастера">
+            <button type="button" class="tool-item" data-tool="hint">✂️</button>
+            <button type="button" class="tool-item" data-tool="peek">🪡</button>
+            <button type="button" class="tool-item" data-tool="mend">🧵</button>
+          </aside>
+
+          <div class="workshop-table">
+            <div class="table-surface">
+              <p class="table-label">Стол мастерской</p>
+              <div class="stacks-board" id="stacks-board"></div>
+            </div>
+            <div class="table-legs" aria-hidden="true">
+              <div class="table-leg"></div>
+              <div class="table-leg"></div>
+            </div>
+            <div class="table-shadow" aria-hidden="true"></div>
+          </div>
+
+          <aside class="tool-rack right" aria-label="Инструменты мастера">
+            <button type="button" class="tool-item" data-tool="pause">🌾</button>
+            <button type="button" class="tool-item" data-tool="shield">🔧</button>
+            <button type="button" class="tool-item" data-tool="wisdom">🫙</button>
+          </aside>
+        </div>
+      </div>
+
+      <aside class="fact-strip empty" id="fact-box">
+        <strong id="fact-label">Знаете ли вы?</strong>
+        <span id="fact-text">Снимите верхнюю карточку стопки и найдите пару</span>
+      </aside>
+      <div class="tool-toast" id="tool-toast" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== Победа ===== -->
+    <section id="screen-win" class="screen">
+      <div class="confetti-layer" id="confetti"></div>
+      <div class="win-card">
+        <div class="win-sparkle">✨ 🏆 ✨</div>
+        <h2>Вы раскрыли узоры мастера!</h2>
+        <div class="win-grid">
+          <span class="chip">Ходов<br><b id="win-moves">0</b></span>
+          <span class="chip">Время<br><b id="win-time">00:00</b></span>
+          <span class="chip">Очки<br><b id="win-score">0</b></span>
+          <span class="chip">Раундов<br><b id="win-rounds">5</b></span>
+        </div>
+        <p class="win-msg" id="win-msg"></p>
+        <div class="win-btns">
+          <button class="btn btn-primary" id="btn-again" type="button">Играть ещё раз</button>
+          <button class="btn btn-secondary" id="btn-catalog" type="button">Каталог изделий</button>
+          <button class="btn btn-ghost btn-exit-win" id="btn-exit-win" type="button">Выйти в меню</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="overlay help-modal" id="help-modal">
+    <div class="help-modal-box">
+      <div class="help-modal-head">
+        <h2>📖 Инструкция</h2>
+        <button type="button" class="help-modal-close" id="help-modal-close" aria-label="Закрыть">✕</button>
+      </div>
+      <div id="help-modal-body"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <span class="popup-emoji" id="pop-emoji">🎉</span>
+      <h3 id="pop-title">Раунд пройден!</h3>
+      <p id="pop-sub">Следующий уровень...</p>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/data/pairs.js"></script>
+  <script src="js/core/state.js"></script>
+  <script src="js/game/render.js"></script>
+  <script src="js/game/engine.js"></script>
+  <script src="js/game/tools.js"></script>
+  <script src="js/ui/facts.js"></script>
+  <script src="js/ui/effects.js"></script>
+  <script src="js/ui/help.js"></script>
+  <script src="js/ui/hud.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

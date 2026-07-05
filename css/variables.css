@@ -1,0 +1,62 @@
+:root {
+  /* Палитра мастерской */
+  --bg-deep: #1a1410;
+  --bg: #2a2118;
+  --bg-warm: #3d3228;
+  --wood-light: #a08058;
+  --wood: #7a5c3a;
+  --wood-dark: #4a3828;
+  --felt: #3d4a32;
+  --felt-light: #5a6b48;
+  --gold: #d4a853;
+  --gold-glow: rgba(212, 168, 83, 0.45);
+  --accent: #c4704a;
+  --accent-glow: rgba(196, 112, 74, 0.5);
+  --cream: #faf6f0;
+  --card-face: #fffef9;
+  --success: #6b9a58;
+  --success-glow: rgba(107, 154, 88, 0.4);
+
+  --cat-home: #7a8450;
+  --cat-decor: #9b6b8a;
+  --cat-kitchen: #c4704a;
+  --cat-outdoor: #4a8a6a;
+  --cat-light: #d4a853;
+
+  /* Карточки — крупнее для читаемости */
+  --card-w: clamp(72px, 18vw, 88px);
+  --stack-x: 5px;
+  --stack-y: 10px;
+  --radius: 12px;
+  --flip: 0.52s;
+  --table-tilt: 0deg;
+
+  --glass: rgba(250, 246, 240, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-strong: rgba(250, 246, 240, 0.14);
+
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-glow: 0 0 24px var(--gold-glow);
+}
+
+@media (max-width: 480px) {
+  :root {
+    --card-w: clamp(64px, 21vw, 78px);
+    --stack-x: 4px;
+    --stack-y: 9px;
+    --table-tilt: 0deg;
+  }
+}
+
+@media (max-height: 680px) {
+  :root {
+    --card-w: clamp(58px, 16vw, 72px);
+    --stack-y: 8px;
+    --table-tilt: 0deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --flip: 0.01s; --table-tilt: 0deg; }
+}
