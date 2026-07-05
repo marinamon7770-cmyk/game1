@@ -330,7 +330,7 @@
   }
 
   .table-label {
-    padding-bottom: 0.2rem;
+    display: none;
   }
 
   .stacks-board {
@@ -338,7 +338,8 @@
     align-items: flex-end;
     flex: 0 1 auto;
     min-height: 0;
-    padding: 0.15rem 0.35rem 0.35rem;
+    margin-top: -1.2cm;
+    padding: 0.1rem 0.35rem 0.35rem;
   }
 }
 
