@@ -280,20 +280,22 @@
     display: none;
   }
 
-  .play-hint {
-    display: block;
+  .workshop-table {
+    flex: 0 0 auto;
+    justify-content: flex-start;
   }
 
   .table-surface {
     justify-content: flex-start;
     flex: 0 1 auto;
     min-height: auto;
-    padding: 0.35rem 0.45rem 0.45rem;
+    padding: 0.15rem 0.45rem 0.35rem;
   }
 
   .stacks-board {
     flex: 0 1 auto;
     min-height: 0;
+    padding-top: 0.05rem;
   }
 }
 
