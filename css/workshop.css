@@ -131,10 +131,6 @@
   .tool-label {
     display: none;
   }
-
-  .play-hint {
-    display: none;
-  }
 }
 
 .workshop-table {
@@ -195,16 +191,6 @@
   letter-spacing: 0.16em;
   color: rgba(212, 168, 83, 0.6);
   padding: 0.1rem 0 0.35rem;
-  flex-shrink: 0;
-}
-
-.play-hint {
-  display: none;
-  text-align: center;
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: rgba(212, 168, 83, 0.85);
-  padding: 0 0.25rem 0.3rem;
   flex-shrink: 0;
 }
 
@@ -287,25 +273,36 @@
 }
 
 @media (max-width: 640px) {
+  .workshop-zone {
+    gap: 0.2rem;
+  }
+
+  .workshop-table {
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
+
   .table-label {
     display: none;
   }
 
-  .play-hint {
-    display: block;
+  .table-legs,
+  .table-shadow {
+    display: none;
   }
 
   .table-surface {
     justify-content: flex-start;
-    flex: 0 1 auto;
-    min-height: auto;
-    padding: 0.35rem 0.45rem 0.45rem;
+    flex: 0 0 auto;
+    min-height: 0;
+    padding: 0.2rem 0.4rem 0.3rem;
   }
 
   .stacks-board {
-    flex: 0 1 auto;
+    flex: 0 0 auto;
     min-height: 0;
-    gap: 0.35rem;
+    gap: 0.3rem;
+    padding: 0.1rem 0.2rem 0.15rem;
   }
 
   .stacks-board--pyramid .stacks-row {
