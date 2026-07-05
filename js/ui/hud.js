@@ -198,14 +198,22 @@ Game.ui = {
     Game.screens.init();
     Game.ui.setDifficulty("normal");
     Game.tools.init();
-
     Game.help.init();
 
-    Game.$("btn-start").addEventListener("click", Game.ui.startGame);
-    Game.$("btn-restart").addEventListener("click", Game.ui.startGame);
-    Game.$("btn-again").addEventListener("click", Game.ui.startGame);
-    Game.$("btn-exit").addEventListener("click", Game.ui.exitToMenu);
-    Game.$("btn-exit-win").addEventListener("click", Game.ui.exitToMenu);
+    var btnStart = Game.$("btn-start");
+    if (btnStart) btnStart.addEventListener("click", Game.ui.startGame);
+
+    var btnRestart = Game.$("btn-restart");
+    if (btnRestart) btnRestart.addEventListener("click", Game.ui.startGame);
+
+    var btnAgain = Game.$("btn-again");
+    if (btnAgain) btnAgain.addEventListener("click", Game.ui.startGame);
+
+    var btnExit = Game.$("btn-exit");
+    if (btnExit) btnExit.addEventListener("click", Game.ui.exitToMenu);
+
+    var btnExitWin = Game.$("btn-exit-win");
+    if (btnExitWin) btnExitWin.addEventListener("click", Game.ui.exitToMenu);
 
     document.querySelectorAll(".btn-diff").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -213,11 +221,14 @@ Game.ui = {
       });
     });
 
-    Game.$("btn-catalog").addEventListener("click", function () {
-      var list = Game.PAIRS.map(function (p) {
-        return p.emoji + " " + p.title;
-      }).join("\n");
-      alert("Каталог мастерской:\n\n" + list);
-    });
+    var btnCatalog = Game.$("btn-catalog");
+    if (btnCatalog) {
+      btnCatalog.addEventListener("click", function () {
+        var list = Game.PAIRS.map(function (p) {
+          return p.emoji + " " + p.title;
+        }).join("\n");
+        alert("Каталог мастерской:\n\n" + list);
+      });
+    }
   }
 };

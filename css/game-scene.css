@@ -69,7 +69,7 @@
 }
 
 #screen-game > .game-bar,
-#screen-game > .tools-bar--mobile,
+#screen-game > .game-play-area,
 #screen-game > .game-body,
 #screen-game > .fact-strip {
   position: relative;
