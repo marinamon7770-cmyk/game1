@@ -66,48 +66,6 @@ Game.render = {
     });
   },
 
-  getPyramidRows: function (count) {
-    /* Мобильная пирамида: 1 — 2 — 3 стопки в ряд */
-    if (window.matchMedia("(max-width: 640px)").matches && count <= 6) {
-      if (count === 6) return [1, 2, 3];
-      if (count === 5) return [1, 2, 2];
-      if (count === 4) return [1, 2, 1];
-      if (count === 3) return [1, 2];
-      if (count === 2) return [1, 1];
-      return [1];
-    }
-
-    var rows = [];
-    var remaining = count;
-    var rowSize = 1;
-    while (remaining > 0) {
-      rows.push(Math.min(rowSize, remaining));
-      remaining -= Math.min(rowSize, remaining);
-      rowSize++;
-    }
-    return rows;
-  },
-
-  appendStackCol: function (si, offsetY) {
-    var stack = Game.state.stacks[si];
-    var col = document.createElement("div");
-    col.className = "stack-col";
-    var activeCards = stack.filter(function (c) { return !c.removed; });
-    var cardH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--card-w")) * 1.34;
-    col.style.height = (cardH + (activeCards.length - 1) * offsetY + 4) + "px";
-
-    var visualLayer = 0;
-    activeCards.forEach(function (item) {
-      var btn = Game.render.buildCardBtn(si, item, { layer: visualLayer, zIndex: visualLayer + 1 });
-      var isTop = Game.engine.topCard(si) && Game.engine.topCard(si).card.uid === item.uid;
-      if (!item.isOpen && isTop) btn.classList.add("playable");
-      else if (!item.isOpen) btn.classList.remove("playable");
-      col.appendChild(btn);
-      visualLayer++;
-    });
-    return col;
-  },
-
   renderStacks: function () {
     var board = Game.$("stacks-board");
     board.innerHTML = "";
@@ -118,30 +76,35 @@ Game.render = {
     }
 
     if (left <= 2 && left > 0) {
-      board.classList.remove("stacks-board--pyramid");
       Game.render.renderEndgame(board);
       Game.engine.syncFlippedFromState();
       setTimeout(function () { Game.engine.finishLastPair(); }, 120);
       return;
     }
 
-    board.classList.remove("endgame-board");
+    board.classList.remove("endgame-board", "stacks-board--pyramid");
     var stackCount = Game.state.stacks.length;
     board.dataset.stacks = stackCount >= 7 ? "many" : String(stackCount);
-    board.classList.add("stacks-board--pyramid");
     var offsetY = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--stack-y"))
       || Game.CONFIG.STACK_OFFSET_Y;
-    var pyramid = Game.render.getPyramidRows(stackCount);
-    var stackIdx = 0;
 
-    pyramid.forEach(function (colsInRow) {
-      var row = document.createElement("div");
-      row.className = "stacks-row";
-      for (var c = 0; c < colsInRow; c++) {
-        row.appendChild(Game.render.appendStackCol(stackIdx, offsetY));
-        stackIdx++;
-      }
-      board.appendChild(row);
+    Game.state.stacks.forEach(function (stack, si) {
+      var col = document.createElement("div");
+      col.className = "stack-col";
+      var activeCards = stack.filter(function (c) { return !c.removed; });
+      var cardH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--card-w")) * 1.34;
+      col.style.height = (cardH + (activeCards.length - 1) * offsetY + 4) + "px";
+
+      var visualLayer = 0;
+      activeCards.forEach(function (item) {
+        var btn = Game.render.buildCardBtn(si, item, { layer: visualLayer, zIndex: visualLayer + 1 });
+        var isTop = Game.engine.topCard(si) && Game.engine.topCard(si).card.uid === item.uid;
+        if (!item.isOpen && isTop) btn.classList.add("playable");
+        else if (!item.isOpen) btn.classList.remove("playable");
+        col.appendChild(btn);
+        visualLayer++;
+      });
+      board.appendChild(col);
     });
 
     Game.engine.syncFlippedFromState();

@@ -131,6 +131,10 @@
   .tool-label {
     display: none;
   }
+
+  .play-hint {
+    display: none;
+  }
 }
 
 .workshop-table {
@@ -194,6 +198,16 @@
   flex-shrink: 0;
 }
 
+.play-hint {
+  display: none;
+  text-align: center;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(212, 168, 83, 0.85);
+  padding: 0 0.25rem 0.3rem;
+  flex-shrink: 0;
+}
+
 .table-legs {
   display: flex;
   justify-content: space-between;
@@ -222,38 +236,27 @@
   pointer-events: none;
 }
 
-/* Стопки — пирамида косынкой */
+/* Стопки — горизонтальный ряд, как в косынке */
 .stacks-board {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.45rem;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.5rem, 3vw, 1rem) clamp(0.4rem, 2.5vw, 0.85rem);
   padding: 0.35rem 0.35rem 0.5rem;
   min-height: 120px;
   overflow: visible;
 }
 
-.stacks-board--pyramid .stacks-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  gap: clamp(0.45rem, 3vw, 0.85rem);
-  width: 100%;
-}
-
-.stacks-board[data-stacks="many"] .stacks-row {
-  gap: clamp(0.3rem, 2vw, 0.55rem);
+.stacks-board[data-stacks="many"] {
+  gap: clamp(0.35rem, 2vw, 0.6rem) clamp(0.3rem, 1.8vw, 0.55rem);
 }
 
 .stacks-board.endgame-board {
-  flex-direction: row;
-  flex-wrap: wrap;
   align-content: center;
   align-items: center;
-  justify-content: center;
   gap: clamp(1.5rem, 14vw, 3.5rem);
 }
 
@@ -273,73 +276,24 @@
 }
 
 @media (max-width: 640px) {
-  .game-body {
-    flex: 1;
-    min-height: 0;
-  }
-
-  .table-scene {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 0.15rem 0;
-  }
-
-  .workshop-zone {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    gap: 0;
-  }
-
-  /* Подсказки на телефоне скрыты — только пирамида карт */
-  .tools-strip {
-    display: none !important;
-  }
-
-  .workshop-table {
-    flex: 0 0 auto;
-    width: 100%;
-    justify-content: flex-start;
-  }
-
   .table-label {
     display: none;
   }
 
-  .table-legs,
-  .table-shadow {
-    display: none;
+  .play-hint {
+    display: block;
   }
 
   .table-surface {
-    flex: 0 0 auto;
-    min-height: 0;
-    padding: 0.35rem 0.45rem 0.45rem;
     justify-content: flex-start;
+    flex: 0 1 auto;
+    min-height: auto;
+    padding: 0.35rem 0.45rem 0.45rem;
   }
 
   .stacks-board {
-    flex: 0 0 auto;
-    gap: 0.35rem;
-    padding: 0.15rem 0.25rem 0.2rem;
-    justify-content: flex-start;
-  }
-
-  .stacks-board--pyramid .stacks-row {
-    gap: clamp(0.4rem, 3vw, 0.75rem);
-  }
-
-  .stacks-board--pyramid .stacks-row:nth-child(1) {
-    margin-bottom: 0.05rem;
-  }
-
-  .stacks-board--pyramid .stacks-row:nth-child(2) {
-    margin-bottom: 0.05rem;
+    flex: 0 1 auto;
+    min-height: 0;
   }
 }
 
@@ -349,8 +303,7 @@
 }
 
 @media (min-width: 641px) {
-  .stacks-board--pyramid {
-    justify-content: center;
-    gap: 0.5rem;
+  .stacks-board {
+    align-content: center;
   }
 }
