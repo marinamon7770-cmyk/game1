@@ -10,7 +10,6 @@
   padding: 0;
   cursor: default;
   pointer-events: none;
-  /* слои вниз и вправо — «гребешки» стопки */
   transform: translate(
     calc(var(--layer) * var(--stack-x)),
     calc(var(--layer) * var(--stack-y))
@@ -23,6 +22,35 @@
 .stack-card.playable {
   cursor: pointer;
   pointer-events: auto;
+  z-index: 50;
+}
+
+.stack-card.playable .card-body {
+  box-shadow:
+    0 0 0 2px rgba(212, 168, 83, 0.75),
+    0 0 16px rgba(212, 168, 83, 0.35),
+    var(--shadow-card);
+}
+
+.stack-card.playable::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold-glow);
+  z-index: 60;
+  pointer-events: none;
+  animation: playableDot 1.4s ease-in-out infinite;
+}
+
+@keyframes playableDot {
+  0%, 100% { opacity: 0.55; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(-2px); }
 }
 
 .stack-card.playable:hover .card-body {
@@ -298,7 +326,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stack-card, .card-body, .stack-card.playable:hover .card-body { animation: none !important; transition: none !important; }
+  .stack-card, .card-body, .stack-card.playable:hover .card-body,
+  .stack-card.playable::before { animation: none !important; transition: none !important; }
 }
 
 @media (max-width: 640px) {
