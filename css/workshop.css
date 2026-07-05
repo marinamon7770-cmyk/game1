@@ -274,36 +274,37 @@
 
 @media (max-width: 640px) {
   .game-body {
-    flex: 0 0 auto;
+    flex: 1;
+    min-height: 0;
   }
 
   .table-scene {
-    flex: 0 0 auto;
-    min-height: auto;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0.15rem 0;
   }
 
   .workshop-zone {
-    display: grid;
-    grid-template-rows: auto auto auto;
-    gap: 0.3rem;
-    align-content: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 0;
   }
 
+  /* Подсказки на телефоне скрыты — только пирамида карт */
   .tools-strip {
-    flex-shrink: 0;
-  }
-
-  .tools-strip--bottom {
-    position: relative;
-    z-index: 5;
-    margin-top: 0.15rem;
+    display: none !important;
   }
 
   .workshop-table {
     flex: 0 0 auto;
+    width: 100%;
     justify-content: flex-start;
-    margin: 0;
-    z-index: 1;
   }
 
   .table-label {
@@ -316,21 +317,29 @@
   }
 
   .table-surface {
-    justify-content: flex-start;
     flex: 0 0 auto;
     min-height: 0;
-    padding: 0.15rem 0.35rem 0.2rem;
+    padding: 0.35rem 0.45rem 0.45rem;
+    justify-content: flex-start;
   }
 
   .stacks-board {
     flex: 0 0 auto;
-    min-height: 0;
-    gap: 0.2rem;
-    padding: 0.05rem 0.15rem 0.25rem;
+    gap: 0.35rem;
+    padding: 0.15rem 0.25rem 0.2rem;
+    justify-content: flex-start;
   }
 
   .stacks-board--pyramid .stacks-row {
-    gap: clamp(0.3rem, 2.2vw, 0.55rem);
+    gap: clamp(0.4rem, 3vw, 0.75rem);
+  }
+
+  .stacks-board--pyramid .stacks-row:nth-child(1) {
+    margin-bottom: 0.05rem;
+  }
+
+  .stacks-board--pyramid .stacks-row:nth-child(2) {
+    margin-bottom: 0.05rem;
   }
 }
 

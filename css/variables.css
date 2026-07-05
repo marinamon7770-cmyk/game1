@@ -42,9 +42,9 @@
 
 @media (max-width: 640px) {
   :root {
-    --card-w: clamp(68px, 21vw, 82px);
-    --stack-x: 3px;
-    --stack-y: 6px;
+    --card-w: clamp(72px, 23vw, 88px);
+    --stack-x: 4px;
+    --stack-y: 7px;
     --radius: 12px;
   }
 }

@@ -67,6 +67,16 @@ Game.render = {
   },
 
   getPyramidRows: function (count) {
+    /* Мобильная пирамида: 1 — 2 — 3 стопки в ряд */
+    if (window.matchMedia("(max-width: 640px)").matches && count <= 6) {
+      if (count === 6) return [1, 2, 3];
+      if (count === 5) return [1, 2, 2];
+      if (count === 4) return [1, 2, 1];
+      if (count === 3) return [1, 2];
+      if (count === 2) return [1, 1];
+      return [1];
+    }
+
     var rows = [];
     var remaining = count;
     var rowSize = 1;
