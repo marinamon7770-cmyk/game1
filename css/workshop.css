@@ -322,7 +322,22 @@
   }
 
   .table-surface {
+    justify-content: flex-start;
     min-height: 140px;
+    padding-top: 0.35rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .table-label {
+    padding-bottom: 0.2rem;
+  }
+
+  .stacks-board {
+    align-content: flex-start;
+    align-items: flex-end;
+    flex: 0 1 auto;
+    min-height: 0;
+    padding: 0.15rem 0.35rem 0.35rem;
   }
 }
 
