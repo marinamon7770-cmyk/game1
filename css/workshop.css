@@ -30,58 +30,79 @@
   justify-content: center;
 }
 
-/* ===== Инструменты ===== */
+/* ===== Инструменты — мобильная вёрстка по умолчанию ===== */
 .tools-panel {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem;
+  margin-top: 0.2rem;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212, 168, 83, 0.08), transparent 65%),
+    rgba(42, 33, 24, 0.88);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .tools-row {
-  height: 0;
-  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.tools-row--2 {
+  gap: clamp(2rem, 18vw, 3.5rem);
+}
+
+.tools-row--3 {
+  gap: 0.45rem;
 }
 
 .tool-item {
-  position: absolute;
-  pointer-events: auto;
-  width: 38px;
-  height: 38px;
+  position: relative;
+  width: auto;
+  min-width: 62px;
+  max-width: 76px;
+  flex: 1;
+  min-height: 58px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.08rem;
-  font-size: 1.05rem;
+  padding: 0.32rem 0.3rem 0.28rem;
+  font-size: 1rem;
   background: linear-gradient(145deg, #4a3828, #3d3228);
-  border-radius: 11px;
+  border-radius: 14px;
   border: 1px solid rgba(212, 168, 83, 0.28);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: transform 0.2s, opacity 0.2s, border-color 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  padding: 0;
   color: inherit;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .tool-icon {
   display: block;
   line-height: 1;
+  font-size: 1.4rem;
 }
 
 .tool-label {
-  display: none;
+  display: block;
+  font-size: 0.56rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: rgba(250, 246, 240, 0.9);
 }
-
-/* Десктоп: колонки по бокам стола */
-.tool-item[data-tool="hint"]   { left: 0;  transform: translateY(calc(-50% - 52px)); }
-.tool-item[data-tool="peek"]   { left: 0;  transform: translateY(-50%); }
-.tool-item[data-tool="mend"]   { left: 0;  transform: translateY(calc(-50% + 52px)); }
-.tool-item[data-tool="pause"]  { right: 0; left: auto; transform: translateY(calc(-50% - 52px)); }
-.tool-item[data-tool="shield"] { right: 0; left: auto; transform: translateY(-50%); }
-.tool-item[data-tool="wisdom"] { right: 0; left: auto; transform: translateY(calc(-50% + 52px)); }
 
 .tool-item:hover:not(.tool-spent) {
   border-color: rgba(212, 168, 83, 0.6);
@@ -89,17 +110,70 @@
   filter: brightness(1.08);
 }
 
-.tool-item[data-tool="hint"]:hover:not(.tool-spent)   { transform: translateY(calc(-50% - 52px)) scale(1.06); }
-.tool-item[data-tool="peek"]:hover:not(.tool-spent)   { transform: translateY(-50%) scale(1.06); }
-.tool-item[data-tool="mend"]:hover:not(.tool-spent)   { transform: translateY(calc(-50% + 52px)) scale(1.06); }
-.tool-item[data-tool="pause"]:hover:not(.tool-spent)  { transform: translateY(calc(-50% - 52px)) scale(1.06); }
-.tool-item[data-tool="shield"]:hover:not(.tool-spent) { transform: translateY(-50%) scale(1.06); }
-.tool-item[data-tool="wisdom"]:hover:not(.tool-spent) { transform: translateY(calc(-50% + 52px)) scale(1.06); }
-
 .tool-item.tool-spent {
   opacity: 0.35;
   cursor: not-allowed;
   filter: grayscale(0.6);
+}
+
+/* Десктоп: инструменты по бокам стола */
+@media (min-width: 641px) {
+  .tools-panel {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .tools-row {
+    display: block;
+    height: 0;
+    overflow: visible;
+  }
+
+  .tool-item {
+    position: absolute;
+    pointer-events: auto;
+    width: 38px;
+    height: 38px;
+    min-width: 0;
+    max-width: none;
+    flex: none;
+    min-height: 0;
+    padding: 0;
+    border-radius: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .tool-icon {
+    font-size: 1.05rem;
+  }
+
+  .tool-label {
+    display: none;
+  }
+
+  .tool-item[data-tool="hint"]   { left: 0;  transform: translateY(calc(-50% - 52px)); }
+  .tool-item[data-tool="peek"]   { left: 0;  transform: translateY(-50%); }
+  .tool-item[data-tool="mend"]   { left: 0;  transform: translateY(calc(-50% + 52px)); }
+  .tool-item[data-tool="pause"]  { right: 0; left: auto; transform: translateY(calc(-50% - 52px)); }
+  .tool-item[data-tool="shield"] { right: 0; left: auto; transform: translateY(-50%); }
+  .tool-item[data-tool="wisdom"] { right: 0; left: auto; transform: translateY(calc(-50% + 52px)); }
+
+  .tool-item[data-tool="hint"]:hover:not(.tool-spent)   { transform: translateY(calc(-50% - 52px)) scale(1.06); }
+  .tool-item[data-tool="peek"]:hover:not(.tool-spent)   { transform: translateY(-50%) scale(1.06); }
+  .tool-item[data-tool="mend"]:hover:not(.tool-spent)   { transform: translateY(calc(-50% + 52px)) scale(1.06); }
+  .tool-item[data-tool="pause"]:hover:not(.tool-spent)  { transform: translateY(calc(-50% - 52px)) scale(1.06); }
+  .tool-item[data-tool="shield"]:hover:not(.tool-spent) { transform: translateY(-50%) scale(1.06); }
+  .tool-item[data-tool="wisdom"]:hover:not(.tool-spent) { transform: translateY(calc(-50% + 52px)) scale(1.06); }
 }
 
 .workshop-table {
@@ -231,110 +305,20 @@
   overflow-x: hidden;
 }
 
-/* ===== Мобильная пирамида косынкой ===== */
 @media (max-width: 640px) {
   .game-body {
     flex-direction: column;
     align-items: stretch;
     gap: 0.35rem;
-    position: relative;
   }
 
   .table-scene {
-    position: relative;
     flex: 0 1 auto;
     width: 100%;
     min-height: 0;
     padding: 0;
+    position: relative;
     z-index: 2;
-    pointer-events: auto;
-  }
-
-  .table-surface,
-  .stacks-board,
-  .stack-col,
-  .stack-card.playable {
-    pointer-events: auto;
-  }
-
-  .tools-panel {
-    position: relative !important;
-    inset: auto !important;
-    order: unset;
-    z-index: 1;
-    width: 100%;
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.45rem;
-    flex-shrink: 0;
-    margin-top: 0.15rem;
-    padding: 0.45rem 0.45rem 0.5rem;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212, 168, 83, 0.08), transparent 65%),
-      rgba(42, 33, 24, 0.88);
-    border-radius: 16px;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-
-  .tools-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    overflow: visible;
-    width: 100%;
-    gap: 0.5rem;
-  }
-
-  .tools-row--2 {
-    gap: clamp(2.2rem, 20vw, 4rem);
-  }
-
-  .tools-row--3 {
-    gap: 0.45rem;
-  }
-
-  .tool-item {
-    position: static;
-    transform: none !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    width: auto;
-    min-width: 62px;
-    max-width: 76px;
-    flex: 1;
-    min-height: 58px;
-    height: auto;
-    padding: 0.32rem 0.3rem 0.28rem;
-    border-radius: 14px;
-  }
-
-  .tool-icon {
-    font-size: 1.4rem;
-  }
-
-  .tool-label {
-    display: block;
-    font-size: 0.56rem;
-    font-weight: 600;
-    line-height: 1.15;
-    color: rgba(250, 246, 240, 0.9);
-  }
-
-  .tool-item:active:not(.tool-spent) {
-    transform: scale(0.94) !important;
-  }
-
-  .tool-item:hover:not(.tool-spent) {
-    transform: none !important;
-  }
-
-  .workshop-table {
-    min-height: auto;
   }
 
   .table-surface {

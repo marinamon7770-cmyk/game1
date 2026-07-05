@@ -252,6 +252,9 @@ Game.engine = {
     }
 
     Game.hud.update();
+    if (Game.tools && Game.state.misses <= 3) {
+      Game.tools.toast("Разные изделия — нужны название и назначение одного изделия");
+    }
     setTimeout(function () {
       Game.state.flipped.forEach(function (f) {
         var found = Game.engine.findCard(f.uid);
