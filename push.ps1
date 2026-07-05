@@ -6,7 +6,14 @@ git status
 
 $changes = git status --porcelain
 if (-not $changes) {
-    Write-Host "Нет изменений для отправки." -ForegroundColor Yellow
+    $last = git log -1 --format="%h %s (%cr)"
+    $ver = (Select-String -Path "index.html" -Pattern '\?v=(\d+)' | Select-Object -First 1).Matches.Groups[1].Value
+    Write-Host "Нет новых изменений — всё уже на GitHub." -ForegroundColor Yellow
+    Write-Host "Последний коммит: $last" -ForegroundColor Gray
+    if ($ver) {
+        Write-Host "Откройте сайт с актуальной версией:" -ForegroundColor Cyan
+        Write-Host "https://marinamon7770-cmyk.github.io/game1/?v=$ver" -ForegroundColor Green
+    }
     exit 0
 }
 
