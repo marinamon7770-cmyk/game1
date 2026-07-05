@@ -2,20 +2,12 @@
 .game-body {
   flex: 1;
   min-height: 0;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: clamp(0.2rem, 1.5vw, 0.65rem);
 }
-
-/* Десктоп: стойки по бокам стола */
-.tools-pyramid-wrap {
-  display: contents;
-}
-
-.tool-rack.left { order: 1; }
-.table-scene { order: 2; }
-.tool-rack.right { order: 3; }
 
 .table-scene {
   flex: 1;
@@ -38,21 +30,22 @@
   justify-content: center;
 }
 
-.tool-rack {
-  flex-shrink: 0;
-  width: 38px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  opacity: 0.9;
-  align-self: center;
+/* ===== Инструменты ===== */
+.tools-panel {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
 }
 
-.tool-rack.right { order: 3; }
+.tools-row {
+  height: 0;
+  overflow: visible;
+}
 
 .tool-item {
+  position: absolute;
+  pointer-events: auto;
   width: 38px;
   height: 38px;
   display: flex;
@@ -69,6 +62,8 @@
   cursor: pointer;
   padding: 0;
   color: inherit;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .tool-icon {
@@ -80,11 +75,26 @@
   display: none;
 }
 
+/* Десктоп: колонки по бокам стола */
+.tool-item[data-tool="hint"]   { left: 0;  transform: translateY(calc(-50% - 52px)); }
+.tool-item[data-tool="peek"]   { left: 0;  transform: translateY(-50%); }
+.tool-item[data-tool="mend"]   { left: 0;  transform: translateY(calc(-50% + 52px)); }
+.tool-item[data-tool="pause"]  { right: 0; left: auto; transform: translateY(calc(-50% - 52px)); }
+.tool-item[data-tool="shield"] { right: 0; left: auto; transform: translateY(-50%); }
+.tool-item[data-tool="wisdom"] { right: 0; left: auto; transform: translateY(calc(-50% + 52px)); }
+
 .tool-item:hover:not(.tool-spent) {
-  transform: scale(1.06);
   border-color: rgba(212, 168, 83, 0.6);
   box-shadow: 0 4px 18px rgba(212, 168, 83, 0.2);
+  filter: brightness(1.08);
 }
+
+.tool-item[data-tool="hint"]:hover:not(.tool-spent)   { transform: translateY(calc(-50% - 52px)) scale(1.06); }
+.tool-item[data-tool="peek"]:hover:not(.tool-spent)   { transform: translateY(-50%) scale(1.06); }
+.tool-item[data-tool="mend"]:hover:not(.tool-spent)   { transform: translateY(calc(-50% + 52px)) scale(1.06); }
+.tool-item[data-tool="pause"]:hover:not(.tool-spent)  { transform: translateY(calc(-50% - 52px)) scale(1.06); }
+.tool-item[data-tool="shield"]:hover:not(.tool-spent) { transform: translateY(-50%) scale(1.06); }
+.tool-item[data-tool="wisdom"]:hover:not(.tool-spent) { transform: translateY(calc(-50% + 52px)) scale(1.06); }
 
 .tool-item.tool-spent {
   opacity: 0.35;
@@ -221,6 +231,7 @@
   overflow-x: hidden;
 }
 
+/* ===== Мобильная пирамида косынкой ===== */
 @media (max-width: 640px) {
   .game-body {
     flex-direction: column;
@@ -228,13 +239,15 @@
     gap: 0.4rem;
   }
 
-  .tools-pyramid-wrap {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    grid-template-rows: repeat(3, auto);
-    gap: 0.45rem 0.35rem;
+  .tools-panel {
+    position: static;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
     flex-shrink: 0;
-    padding: 0.55rem 0.45rem 0.6rem;
+    padding: 0.55rem 0.5rem 0.6rem;
     background:
       radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212, 168, 83, 0.08), transparent 65%),
       rgba(42, 33, 24, 0.88);
@@ -243,31 +256,38 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
-  .tool-rack {
-    display: contents;
+  .tools-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    overflow: visible;
+    width: 100%;
+    gap: 0.5rem;
   }
 
-  .tool-rack.left { order: unset; }
-  .tool-rack.right { order: unset; }
-  .table-scene { order: unset; }
+  .tools-row--2 {
+    gap: clamp(2.2rem, 20vw, 4rem);
+  }
 
-  /* Пирамида косынкой: 1 — 2 — 3 */
-  .tool-rack.left .tool-item:nth-child(1) { grid-column: 3; grid-row: 1; }
-  .tool-rack.left .tool-item:nth-child(2) { grid-column: 2; grid-row: 2; }
-  .tool-rack.left .tool-item:nth-child(3) { grid-column: 1; grid-row: 3; }
-  .tool-rack.right .tool-item:nth-child(1) { grid-column: 4; grid-row: 2; }
-  .tool-rack.right .tool-item:nth-child(2) { grid-column: 3; grid-row: 3; }
-  .tool-rack.right .tool-item:nth-child(3) { grid-column: 5; grid-row: 3; }
+  .tools-row--3 {
+    gap: 0.45rem;
+  }
 
   .tool-item {
-    width: 100%;
-    max-width: 72px;
-    min-height: 62px;
+    position: static;
+    transform: none !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    width: auto;
+    min-width: 68px;
+    max-width: 80px;
+    flex: 1;
+    min-height: 64px;
     height: auto;
-    justify-self: center;
     padding: 0.38rem 0.35rem 0.32rem;
     border-radius: 14px;
-    font-size: 1rem;
   }
 
   .tool-icon {
@@ -276,15 +296,18 @@
 
   .tool-label {
     display: block;
-    font-size: 0.58rem;
+    font-size: 0.6rem;
     font-weight: 600;
     line-height: 1.15;
-    color: rgba(250, 246, 240, 0.88);
-    letter-spacing: 0.01em;
+    color: rgba(250, 246, 240, 0.9);
   }
 
   .tool-item:active:not(.tool-spent) {
-    transform: scale(0.94);
+    transform: scale(0.94) !important;
+  }
+
+  .tool-item:hover:not(.tool-spent) {
+    transform: none !important;
   }
 
   .table-scene {
@@ -303,24 +326,23 @@
   }
 }
 
-/* Раздача инструментов «косынкой» при входе в игру */
+/* Раздача «косынкой» — по рядам сверху вниз */
 @media (max-width: 640px) {
-  #screen-game.active .tools-pyramid-wrap .tool-item {
+  #screen-game.active .tools-panel .tool-item {
     animation: toolPyramidDeal 0.5s cubic-bezier(0.34, 1.35, 0.64, 1) backwards;
   }
 
-  #screen-game.active .tool-rack.left .tool-item:nth-child(1) { animation-delay: 0.05s; }
-  #screen-game.active .tool-rack.left .tool-item:nth-child(2),
-  #screen-game.active .tool-rack.right .tool-item:nth-child(1) { animation-delay: 0.15s; }
-  #screen-game.active .tool-rack.left .tool-item:nth-child(3) { animation-delay: 0.25s; }
-  #screen-game.active .tool-rack.right .tool-item:nth-child(2) { animation-delay: 0.3s; }
-  #screen-game.active .tool-rack.right .tool-item:nth-child(3) { animation-delay: 0.35s; }
+  #screen-game.active .tools-row--1 .tool-item { animation-delay: 0.05s; }
+  #screen-game.active .tools-row--2 .tool-item { animation-delay: 0.18s; }
+  #screen-game.active .tools-row--3 .tool-item:nth-child(1) { animation-delay: 0.3s; }
+  #screen-game.active .tools-row--3 .tool-item:nth-child(2) { animation-delay: 0.35s; }
+  #screen-game.active .tools-row--3 .tool-item:nth-child(3) { animation-delay: 0.4s; }
 }
 
 @keyframes toolPyramidDeal {
   from {
     opacity: 0;
-    transform: translateY(-18px) scale(0.65) rotate(-8deg);
+    transform: translateY(-16px) scale(0.7) rotate(-6deg);
   }
   to {
     opacity: 1;
@@ -329,7 +351,7 @@
 }
 
 @media (max-width: 640px) and (prefers-reduced-motion: reduce) {
-  #screen-game.active .tools-pyramid-wrap .tool-item {
+  #screen-game.active .tools-panel .tool-item {
     animation: none !important;
   }
 }
