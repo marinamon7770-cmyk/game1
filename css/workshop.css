@@ -236,27 +236,38 @@
   pointer-events: none;
 }
 
-/* Стопки */
+/* Стопки — пирамида косынкой */
 .stacks-board {
   flex: 1;
   display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(0.5rem, 3vw, 1rem) clamp(0.4rem, 2.5vw, 0.85rem);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.45rem;
   padding: 0.35rem 0.35rem 0.5rem;
   min-height: 120px;
   overflow: visible;
 }
 
-.stacks-board[data-stacks="many"] {
-  gap: clamp(0.35rem, 2vw, 0.6rem) clamp(0.3rem, 1.8vw, 0.55rem);
+.stacks-board--pyramid .stacks-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(0.45rem, 3vw, 0.85rem);
+  width: 100%;
+}
+
+.stacks-board[data-stacks="many"] .stacks-row {
+  gap: clamp(0.3rem, 2vw, 0.55rem);
 }
 
 .stacks-board.endgame-board {
+  flex-direction: row;
+  flex-wrap: wrap;
   align-content: center;
   align-items: center;
+  justify-content: center;
   gap: clamp(1.5rem, 14vw, 3.5rem);
 }
 
@@ -294,6 +305,11 @@
   .stacks-board {
     flex: 0 1 auto;
     min-height: 0;
+    gap: 0.35rem;
+  }
+
+  .stacks-board--pyramid .stacks-row {
+    gap: clamp(0.35rem, 2.5vw, 0.65rem);
   }
 }
 
@@ -303,7 +319,8 @@
 }
 
 @media (min-width: 641px) {
-  .stacks-board {
-    align-content: center;
+  .stacks-board--pyramid {
+    justify-content: center;
+    gap: 0.5rem;
   }
 }
