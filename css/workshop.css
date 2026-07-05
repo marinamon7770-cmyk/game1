@@ -289,12 +289,19 @@
 
 /* ===== Только десктоп: инструменты по бокам, карты по центру ===== */
 @media (min-width: 641px) {
+  .table-scene {
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+  }
+
   .workshop-zone {
+    flex: 1;
+    min-height: 0;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     gap: clamp(0.2rem, 1.5vw, 0.65rem);
-    height: 100%;
   }
 
   .tools-strip {
@@ -330,11 +337,6 @@
     display: none;
   }
 
-  .table-scene {
-    flex: 1;
-    min-height: 0;
-  }
-
   .workshop-table {
     flex: 1;
     min-height: 0;
@@ -360,13 +362,13 @@
   }
 
   .stacks-board {
-    flex: 1;
+    flex: 0 0 auto;
     width: 100%;
     min-height: 0;
     flex-wrap: wrap;
     align-content: center;
     align-items: flex-end;
     justify-content: center;
-    padding: 0.75rem 0.75rem 1rem;
+    padding: 1rem 0.75rem 1rem;
   }
 }
