@@ -443,24 +443,96 @@
   margin-left: auto;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
   .game-title {
     flex: 1 1 100%;
-    font-size: 0.92rem;
+    font-size: 1.08rem;
     text-align: center;
+  }
+
+  .game-bar {
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .game-bar-chips {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+    gap: 0.35rem;
+  }
+
+  .game-bar-chips .chip {
+    font-size: 0.78rem;
+    padding: 0.28rem 0.62rem;
+    color: rgba(250, 246, 240, 0.95);
+  }
+
+  .game-bar-chips .chip b {
+    font-size: 0.94rem;
+  }
+
+  /* Меньше шума — оставляем главные показатели */
+  #combo-chip,
+  .chip:has(#moves) {
+    display: none;
   }
 
   .game-bar-actions {
     flex: 1 1 100%;
     justify-content: center;
     margin-left: 0;
+    gap: 0.35rem;
   }
 
   .game-bar-actions .btn-ghost {
     flex: 1;
     min-width: 0;
-    padding: 0.35rem 0.4rem;
+    min-height: 38px;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .game-bar-meta {
+    font-size: 0.78rem;
+    color: rgba(250, 246, 240, 0.82);
+    padding-top: 0.35rem;
+  }
+
+  .difficulty-badge {
+    font-size: 0.72rem;
+    padding: 0.18rem 0.5rem;
+  }
+
+  .fact-strip {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    padding: 0.55rem 0.75rem;
+    color: rgba(250, 246, 240, 0.92);
+  }
+
+  .fact-strip strong {
     font-size: 0.68rem;
+    margin-bottom: 0.22rem;
+  }
+
+  .tool-toast {
+    font-size: 0.86rem;
+    padding: 0.55rem 1rem;
+    bottom: 5rem;
+  }
+
+  .hero-lead { font-size: 0.98rem; }
+  .hero-hint { font-size: 0.8rem; }
+  .btn-diff { font-size: 0.86rem; }
+  .btn-diff small { font-size: 0.7rem; }
+  .hero-stats { font-size: 0.76rem; }
+  .hero-stats span b { font-size: 1.08rem; }
+}
+
+@media (max-width: 520px) {
+  .game-title {
+    font-size: 1.02rem;
   }
 }
 
@@ -720,7 +792,7 @@
   border-color: rgba(212, 168, 83, 0.25);
 }
 
-@media (max-height: 620px) {
+@media (max-height: 620px) and (min-width: 641px) {
   .fact-strip { display: none; }
 }
 

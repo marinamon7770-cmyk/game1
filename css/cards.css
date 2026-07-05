@@ -300,3 +300,34 @@
 @media (prefers-reduced-motion: reduce) {
   .stack-card, .card-body, .stack-card.playable:hover .card-body { animation: none !important; transition: none !important; }
 }
+
+@media (max-width: 640px) {
+  .cat-badge {
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    padding: 0.22rem 0.25rem 0.18rem;
+  }
+
+  .card-front.is-product .lbl {
+    font-size: 0.72rem;
+    line-height: 1.22;
+    padding: 0.22rem 0.3rem 0.34rem;
+  }
+
+  .card-front.is-purpose .purpose-head {
+    font-size: 0.88rem;
+    padding: 0.18rem 0.2rem 0.08rem;
+  }
+
+  .card-front.is-purpose .lbl {
+    font-size: 0.68rem;
+    line-height: 1.32;
+    padding: 0.14rem 0.34rem 0.38rem;
+  }
+
+  .card-back-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+}

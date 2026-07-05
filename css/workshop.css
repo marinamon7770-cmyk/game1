@@ -226,9 +226,10 @@
   }
 
   .tool-item {
-    width: 44px;
-    height: 44px;
-    font-size: 1.05rem;
+    width: 48px;
+    height: 48px;
+    font-size: 1.35rem;
+    border-radius: 13px;
   }
 
   .table-scene {
