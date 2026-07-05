@@ -42,18 +42,20 @@
 
 @media (max-width: 640px) {
   :root {
-    --card-w: clamp(82px, 26vw, 100px);
-    --stack-x: 4px;
-    --stack-y: 8px;
-    --radius: 13px;
+    /* 6 стопок в ряд: (ширина − отступы − 5 зазоров) / 6 ≈ 52px при 390px экране */
+    --card-w: clamp(48px, 13.2vw, 58px);
+    --stack-x: 3px;
+    --stack-y: 5px;
+    --radius: 10px;
+    --mobile-tool-row: 38px;
   }
 }
 
 @media (max-width: 480px) {
   :root {
-    --card-w: clamp(78px, 24vw, 92px);
-    --stack-x: 4px;
-    --stack-y: 8px;
+    --card-w: clamp(46px, 12.8vw, 54px);
+    --stack-x: 3px;
+    --stack-y: 5px;
     --table-tilt: 0deg;
   }
 }

@@ -92,7 +92,7 @@
   filter: grayscale(0.6);
 }
 
-/* Десктоп: инструменты по бокам столба */
+/* Десктоп: инструменты по бокам внутри сетки стола */
 @media (min-width: 641px) {
   .workshop-zone {
     flex-direction: row;
@@ -100,6 +100,37 @@
     justify-content: center;
     gap: clamp(0.2rem, 1.5vw, 0.65rem);
     height: 100%;
+  }
+
+  .table-surface {
+    display: grid;
+    grid-template-columns: 42px 1fr 42px;
+    grid-template-rows: auto 1fr;
+    align-items: center;
+  }
+
+  .table-label {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    position: static;
+    padding-bottom: 0.35rem;
+  }
+
+  .tools-strip--top {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
+  }
+
+  .stacks-board {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .tools-strip--bottom {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: center;
   }
 
   .tools-strip {
@@ -283,29 +314,23 @@
   }
 
   .table-scene {
-    flex: 1;
+    flex: 0 1 auto;
     min-height: 0;
     width: 100%;
     padding: 0;
   }
 
   .workshop-zone {
-    flex: 1;
+    flex: 0 1 auto;
     min-height: 0;
-    display: flex;
-    flex-direction: column;
     gap: 0;
   }
 
-  .tools-strip {
-    display: none !important;
-  }
-
   .workshop-table {
-    flex: 1;
+    flex: 0 1 auto;
     min-height: 0;
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .table-label,
@@ -314,21 +339,61 @@
     display: none;
   }
 
+  /* Поле: 2 ряда подсказок (~38px) + карты (~85px) ≈ 185px вместо растягивания на весь экран */
   .table-surface {
+    flex: 0 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0.28rem 0.32rem 0.32rem;
+    gap: 0.22rem;
+  }
+
+  .tools-strip {
+    flex-shrink: 0;
+    min-height: var(--mobile-tool-row, 38px);
+    padding: 0.18rem 0.22rem;
+    gap: 0.28rem;
+    background: rgba(28, 22, 16, 0.72);
+    border-radius: 10px;
+    border: 1px solid rgba(212, 168, 83, 0.16);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .tool-item {
     flex: 1;
-    min-height: 150px;
-    justify-content: center;
-    align-items: center;
-    padding: 0.35rem 0.45rem 0.45rem;
+    max-width: none;
+    min-height: 0;
+    height: auto;
+    padding: 0.12rem 0.15rem 0.1rem;
+    border-radius: 8px;
+    gap: 0.04rem;
+  }
+
+  .tool-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .tool-label {
+    font-size: 0.46rem;
+    line-height: 1.05;
   }
 
   .stacks-board {
-    flex: 0 1 auto;
+    flex: 0 0 auto;
     width: 100%;
     min-height: 0;
     align-content: center;
     justify-content: center;
-    padding: 0.35rem 0.15rem 0.25rem;
+    gap: clamp(0.15rem, 1vw, 0.3rem) clamp(0.22rem, 1.6vw, 0.38rem);
+    padding: 0.12rem 0.08rem 0.1rem;
+  }
+
+  .stacks-board[data-stacks="many"] {
+    gap: clamp(0.12rem, 0.8vw, 0.22rem) clamp(0.18rem, 1.2vw, 0.32rem);
   }
 }
 
@@ -359,17 +424,6 @@
   .table-surface {
     flex: 1;
     min-height: clamp(200px, 38vh, 320px);
-    justify-content: center;
-    align-items: center;
-  }
-
-  .table-label {
-    position: absolute;
-    top: 0.55rem;
-    left: 0;
-    right: 0;
-    padding-bottom: 0;
-    z-index: 1;
   }
 
   .stacks-board {
