@@ -336,12 +336,47 @@
 }
 
 @media (min-width: 641px) {
+  .table-scene {
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  .workshop-zone {
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  .workshop-table {
+    flex: 1;
+    min-height: 0;
+    justify-content: stretch;
+  }
+
   .table-surface {
+    flex: 1;
+    min-height: clamp(200px, 38vh, 320px);
     justify-content: center;
+    align-items: center;
+  }
+
+  .table-label {
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    right: 0;
+    padding-bottom: 0;
+    z-index: 1;
   }
 
   .stacks-board {
-    flex: 0 1 auto;
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 0;
+    justify-content: center;
     align-content: center;
+    align-items: flex-end;
+    padding: 1.75rem 0.75rem 1rem;
   }
 }
