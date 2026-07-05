@@ -119,7 +119,8 @@ Game.render = {
     var stackCount = Game.state.stacks.length;
     board.dataset.stacks = stackCount >= 7 ? "many" : String(stackCount);
     board.classList.add("stacks-board--pyramid");
-    var offsetY = Game.CONFIG.STACK_OFFSET_Y;
+    var offsetY = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--stack-y"))
+      || Game.CONFIG.STACK_OFFSET_Y;
     var pyramid = Game.render.getPyramidRows(stackCount);
     var stackIdx = 0;
 

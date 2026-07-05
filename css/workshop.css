@@ -273,13 +273,37 @@
 }
 
 @media (max-width: 640px) {
+  .game-body {
+    flex: 0 0 auto;
+  }
+
+  .table-scene {
+    flex: 0 0 auto;
+    min-height: auto;
+  }
+
   .workshop-zone {
-    gap: 0.2rem;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 0.3rem;
+    align-content: start;
+  }
+
+  .tools-strip {
+    flex-shrink: 0;
+  }
+
+  .tools-strip--bottom {
+    position: relative;
+    z-index: 5;
+    margin-top: 0.15rem;
   }
 
   .workshop-table {
     flex: 0 0 auto;
     justify-content: flex-start;
+    margin: 0;
+    z-index: 1;
   }
 
   .table-label {
@@ -295,18 +319,18 @@
     justify-content: flex-start;
     flex: 0 0 auto;
     min-height: 0;
-    padding: 0.2rem 0.4rem 0.3rem;
+    padding: 0.15rem 0.35rem 0.2rem;
   }
 
   .stacks-board {
     flex: 0 0 auto;
     min-height: 0;
-    gap: 0.3rem;
-    padding: 0.1rem 0.2rem 0.15rem;
+    gap: 0.2rem;
+    padding: 0.05rem 0.15rem 0.25rem;
   }
 
   .stacks-board--pyramid .stacks-row {
-    gap: clamp(0.35rem, 2.5vw, 0.65rem);
+    gap: clamp(0.3rem, 2.2vw, 0.55rem);
   }
 }
 
