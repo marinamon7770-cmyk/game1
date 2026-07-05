@@ -318,12 +318,13 @@
   }
 
   .workshop-table {
-    min-height: 140px;
+    min-height: auto;
   }
 
   .table-surface {
     justify-content: flex-start;
-    min-height: 140px;
+    flex: 0 1 auto;
+    min-height: auto;
     padding-top: 0.35rem;
     padding-bottom: 0.5rem;
   }
