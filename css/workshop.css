@@ -19,7 +19,6 @@
   overflow: visible;
 }
 
-/* Мобильная: инструменты — ряд сверху и снизу, стол посередине */
 .workshop-zone {
   width: 100%;
   display: flex;
@@ -92,82 +91,6 @@
   filter: grayscale(0.6);
 }
 
-/* Десктоп: инструменты по бокам внутри сетки стола */
-@media (min-width: 641px) {
-  .workshop-zone {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(0.2rem, 1.5vw, 0.65rem);
-    height: 100%;
-  }
-
-  .table-surface {
-    display: grid;
-    grid-template-columns: 42px 1fr 42px;
-    grid-template-rows: auto 1fr;
-    align-items: center;
-  }
-
-  .table-label {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    position: static;
-    padding-bottom: 0.35rem;
-  }
-
-  .tools-strip--top {
-    grid-column: 1;
-    grid-row: 2;
-    align-self: center;
-  }
-
-  .stacks-board {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .tools-strip--bottom {
-    grid-column: 3;
-    grid-row: 2;
-    align-self: center;
-  }
-
-  .tools-strip {
-    flex-direction: column;
-    width: 38px;
-    flex-shrink: 0;
-    padding: 0;
-    gap: 0.45rem;
-    background: none;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  .tool-item {
-    width: 38px;
-    height: 38px;
-    max-width: none;
-    min-height: 0;
-    flex: none;
-    padding: 0;
-    border-radius: 11px;
-  }
-
-  .tool-icon {
-    font-size: 1.05rem;
-  }
-
-  .tool-label {
-    display: none;
-  }
-
-  .play-hint {
-    display: none;
-  }
-}
-
 .workshop-table {
   flex: 1;
   min-width: 0;
@@ -229,16 +152,6 @@
   flex-shrink: 0;
 }
 
-.play-hint {
-  display: none;
-  text-align: center;
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: rgba(212, 168, 83, 0.85);
-  padding: 0 0.25rem 0.3rem;
-  flex-shrink: 0;
-}
-
 .table-legs {
   display: flex;
   justify-content: space-between;
@@ -267,7 +180,6 @@
   pointer-events: none;
 }
 
-/* Стопки — горизонтальный ряд, как в косынке */
 .stacks-board {
   flex: 1;
   display: flex;
@@ -307,6 +219,7 @@
   overflow-x: hidden;
 }
 
+/* ===== Только мобильная: одно поле — подсказки сверху/снизу, карты посередине ===== */
 @media (max-width: 640px) {
   .game-body {
     flex: 1;
@@ -315,22 +228,44 @@
 
   .table-scene {
     flex: 0 1 auto;
-    min-height: 0;
     width: 100%;
     padding: 0;
   }
 
   .workshop-zone {
     flex: 0 1 auto;
-    min-height: 0;
     gap: 0;
+    margin: 0 0.15rem;
+    padding: 0.28rem 0.32rem 0.32rem;
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, rgba(255, 230, 180, 0.06) 0%, transparent 35%),
+      repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(0, 0, 0, 0.025) 18px, rgba(0, 0, 0, 0.025) 19px),
+      linear-gradient(155deg, #6b5340 0%, #4a3828 35%, #3d2e22 70%, #2a2118 100%);
+    box-shadow:
+      inset 0 3px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -8px 24px rgba(0, 0, 0, 0.35),
+      0 8px 24px rgba(0, 0, 0, 0.45),
+      0 0 0 3px #5c4632;
+  }
+
+  .tools-strip {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: var(--mobile-tool-row, 38px);
+    padding: 0.14rem 0.18rem;
+    gap: 0.22rem;
+    background: rgba(28, 22, 16, 0.55);
+    border-radius: 10px;
+    border: 1px solid rgba(212, 168, 83, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .workshop-table {
     flex: 0 1 auto;
     min-height: 0;
-    width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .table-label,
@@ -339,42 +274,33 @@
     display: none;
   }
 
-  /* Поле: 2 ряда подсказок (~38px) + карты (~85px) ≈ 185px вместо растягивания на весь экран */
   .table-surface {
     flex: 0 1 auto;
     min-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 0.28rem 0.32rem 0.32rem;
-    gap: 0.22rem;
+    background: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    padding: 0.18rem 0 0.14rem;
+    overflow: visible;
   }
 
-  .tools-strip {
-    flex-shrink: 0;
-    min-height: var(--mobile-tool-row, 38px);
-    padding: 0.18rem 0.22rem;
-    gap: 0.28rem;
-    background: rgba(28, 22, 16, 0.72);
-    border-radius: 10px;
-    border: 1px solid rgba(212, 168, 83, 0.16);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  .table-surface::before,
+  .table-surface::after {
+    display: none;
   }
 
   .tool-item {
     flex: 1;
     max-width: none;
     min-height: 0;
-    height: auto;
-    padding: 0.12rem 0.15rem 0.1rem;
+    padding: 0.1rem 0.12rem 0.08rem;
     border-radius: 8px;
-    gap: 0.04rem;
+    gap: 0.03rem;
   }
 
   .tool-icon {
-    font-size: 0.95rem;
-    line-height: 1;
+    font-size: 0.92rem;
   }
 
   .tool-label {
@@ -387,13 +313,17 @@
     width: 100%;
     min-height: 0;
     align-content: center;
+    align-items: flex-end;
     justify-content: center;
-    gap: clamp(0.15rem, 1vw, 0.3rem) clamp(0.22rem, 1.6vw, 0.38rem);
-    padding: 0.12rem 0.08rem 0.1rem;
+    flex-wrap: nowrap;
+    gap: clamp(0.1rem, 1.1vw, 0.26rem);
+    padding: 0.06rem 0;
+    overflow: visible;
   }
 
   .stacks-board[data-stacks="many"] {
-    gap: clamp(0.12rem, 0.8vw, 0.22rem) clamp(0.18rem, 1.2vw, 0.32rem);
+    flex-wrap: wrap;
+    gap: clamp(0.1rem, 0.8vw, 0.2rem) clamp(0.14rem, 1.1vw, 0.26rem);
   }
 }
 
@@ -402,17 +332,52 @@
   .table-legs { display: none; }
 }
 
+/* ===== Только десктоп: инструменты по бокам, карты по центру ===== */
 @media (min-width: 641px) {
+  .workshop-zone {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.2rem, 1.5vw, 0.65rem);
+    height: 100%;
+  }
+
+  .tools-strip {
+    flex-direction: column;
+    width: 38px;
+    flex-shrink: 0;
+    padding: 0;
+    gap: 0.45rem;
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    min-height: 0;
+    z-index: auto;
+  }
+
+  .tool-item {
+    width: 38px;
+    height: 38px;
+    max-width: none;
+    min-height: 0;
+    flex: none;
+    padding: 0;
+    border-radius: 11px;
+  }
+
+  .tool-icon {
+    font-size: 1.05rem;
+  }
+
+  .tool-label {
+    display: none;
+  }
+
   .table-scene {
     flex: 1;
     min-height: 0;
-    align-items: stretch;
-  }
-
-  .workshop-zone {
-    flex: 1;
-    min-height: 0;
-    align-items: stretch;
   }
 
   .workshop-table {
@@ -424,15 +389,27 @@
   .table-surface {
     flex: 1;
     min-height: clamp(200px, 38vh, 320px);
+    justify-content: center;
+    align-items: center;
+    padding: 0.45rem 0.5rem 0.65rem;
+    overflow: visible;
+  }
+
+  .table-label {
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    right: 0;
+    padding-bottom: 0;
+    z-index: 1;
   }
 
   .stacks-board {
     flex: 0 0 auto;
-    width: 100%;
-    min-height: 0;
-    justify-content: center;
+    flex-wrap: wrap;
     align-content: center;
     align-items: flex-end;
+    justify-content: center;
     padding: 1.75rem 0.75rem 1rem;
   }
 }
