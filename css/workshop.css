@@ -1,7 +1,18 @@
 /* ===== 3D стол мастерской ===== */
-.table-scene {
+.game-body {
   flex: 1;
   min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.2rem, 1.5vw, 0.65rem);
+}
+
+.table-scene {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -16,7 +27,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.2rem, 1.5vw, 0.65rem);
 }
 
 .tool-rack {
@@ -191,18 +201,24 @@
   overflow-x: hidden;
 }
 
-@media (max-width: 520px) {
-  .workshop-zone {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.35rem 0.5rem;
-    align-content: center;
+@media (max-width: 640px) {
+  .game-body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
   }
 
-  /* Кнопки инструментов — в два ряда над и под столом */
-  .tool-rack.left,
-  .tool-rack.right {
-    display: contents;
+  .tool-rack {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+    padding: 0.3rem 0.35rem;
+    background: rgba(42, 33, 24, 0.82);
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   }
 
   .tool-rack.right {
@@ -210,19 +226,24 @@
   }
 
   .tool-item {
-    width: 42px;
-    height: 42px;
-    font-size: 1rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.05rem;
+  }
+
+  .table-scene {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
   }
 
   .workshop-table {
-    flex: 1 1 100%;
-    width: 100%;
-    min-height: 170px;
+    min-height: 150px;
   }
 
   .table-surface {
-    min-height: 160px;
+    min-height: 150px;
   }
 }
 
