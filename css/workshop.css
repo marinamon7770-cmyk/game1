@@ -278,16 +278,20 @@
 
 @media (max-width: 640px) {
   .game-body {
-    flex: 0 0 auto;
+    flex: 1;
+    min-height: 0;
   }
 
   .table-scene {
-    flex: 0 0 auto;
-    min-height: auto;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    padding: 0;
   }
 
-  /* Подсказки скрыты — только стол с картами */
   .workshop-zone {
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -298,35 +302,33 @@
   }
 
   .workshop-table {
-    flex: 0 0 auto;
-    justify-content: flex-start;
-    margin: 0;
+    flex: 1;
+    min-height: 0;
     width: 100%;
+    justify-content: center;
   }
 
-  .table-label {
-    display: none;
-  }
-
+  .table-label,
   .table-legs,
   .table-shadow {
     display: none;
   }
 
   .table-surface {
-    justify-content: flex-start;
+    flex: 1;
+    min-height: 150px;
+    justify-content: center;
     align-items: center;
-    flex: 0 0 auto;
-    min-height: 0;
-    padding: 0.15rem 0.35rem 0.2rem;
+    padding: 0.35rem 0.45rem 0.45rem;
   }
 
   .stacks-board {
-    flex: 0 0 auto;
-    min-height: 0;
+    flex: 0 1 auto;
     width: 100%;
+    min-height: 0;
+    align-content: center;
     justify-content: center;
-    padding: 0.05rem 0.15rem 0.25rem;
+    padding: 0.35rem 0.15rem 0.25rem;
   }
 }
 
